@@ -1,27 +1,47 @@
 // Place your key bindings in this file to override the defaults
 [
-  {
-    "key": "cmd+b",
-    "command": "workbench.action.toggleAuxiliaryBar"
-  },
-  {
-    "key": "cmd+m",
-    "command": "workbench.action.toggleSidebarVisibility"
-  },
-  {
-    "key": "cmd+o",
-    "command": "workbench.action.toggleStatusbarVisibility"
-  },
-  {
-    "key": "cmd+h",
-    "command": "markdown.showPreview"
-  },
-  {
-    "key": "alt+cmd+p",
-    "command": "workbench.action.openRecent"
-  },
-  {
-    "key": "cmd+n",
-    "command": "claudeVSCodeSessionsList.toggleVisibility"
-  }
-]
+    {
+      "key": "cmd+b",
+      "command": "workbench.action.toggleAuxiliaryBar"
+    },
+    {
+      "key": "cmd+m",
+      "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+      "key": "cmd+o",
+      "command": "runCommands",
+      "when": "config.workbench.statusBar.visible",
+      "args": {
+        "commands": [
+          "workbench.action.editorActionsDefault",
+          "workbench.action.toggleStatusbarVisibility",
+          "breadcrumbs.toggle"
+        ]
+      }
+    },
+    {
+      "key": "cmd+o",
+      "command": "runCommands",
+      "when": "!config.workbench.statusBar.visible",
+      "args": {
+        "commands": [
+          "workbench.action.editorActionsTitleBar",
+          "workbench.action.toggleStatusbarVisibility",
+          "breadcrumbs.toggle"
+        ]
+      }
+    },
+    {
+      "key": "cmd+h",
+      "command": "markdown.showPreview"
+    },
+    {
+      "key": "alt+cmd+p",
+      "command": "workbench.action.openRecent"
+    },
+    {
+      "key": "cmd+n",
+      "command": "claudeVSCodeSessionsList.toggleVisibility"
+    }
+  ]
