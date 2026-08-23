@@ -555,13 +555,90 @@ plugin em `plugins[]`.
   `~/.config/omarchy/plugins/io.github.woogy7.workspaces/switcher-config`
   continua disponível se quiser ativar depois (`menu install`, `bar on/off`,
   `set <chave> <valor>` etc. — configs ficam em `~/.config/omarchy/shell.json`).
-- Bar widget do plugin (chip de workspace) habilitado junto, sem conflito
-  com o widget nativo `omarchy.workspaces`.
+- Bar widget do plugin (chip de workspace) foi habilitado junto na
+  instalação, sem conflito com o widget nativo `omarchy.workspaces` — depois
+  removido da bar, ver 14.2.
 - **Reverter:** remover o bloco acima de `~/.config/hypr/bindings.lua`,
   `hyprctl reload`, depois `omarchy plugin remove io.github.woogy7.workspaces`.
 - ⚠️ **Pendente:** `~/.config/hypr/bindings.lua` ainda não está espelhado em
   `~/dotfiles/linux/hypr/` (só `input.lua` e `monitors.lua` estão lá, seção 9)
   — avaliar se vale adicionar.
+
+### 14.2 Ajuste: remover ícone do plugin na bar + remover widget nativo duplicado
+
+**Problema 1:** o chip do Workspace Switcher na bar não fazia nada útil —
+clique esquerdo abre por padrão "o menu de config do plugin", mas como a
+seção 14 optou por **não** instalar a entrada do Setup menu
+(`switcher-config menu install`), não havia pra onde esse clique ir.
+
+**Correção 1** (comando nativo do próprio plugin, não é hack):
+
+```bash
+~/.config/omarchy/plugins/io.github.woogy7.workspaces/switcher-config bar off
+```
+
+Reversível com `switcher-config bar on`. Só remove a entrada em
+`bar.layout`; não mexe no overlay nem nos keybindings.
+
+**Problema 2:** o widget nativo do Omarchy `omarchy.agents` ("Agents" —
+mostra uso/cota de Claude Code, Codex e Fireworks,
+`/usr/share/omarchy/shell/plugins/agents/`) ficava na bar mostrando a cota
+diária do Claude, redundante com o widget do `akitaonrails.ai-usagebar` (seção
+12) que é o que interessa manter.
+
+**Correção 2** — o próprio README do `ai-usagebar` já recomenda isso ao
+usá-lo como substituto do widget nativo:
+
+```bash
+omarchy plugin disable omarchy.agents
+```
+
+Reversível com `omarchy plugin enable omarchy.agents`. Não afeta
+`akitaonrails.ai-usagebar`, que continua ativo normalmente.
+
+### 14.3 Ajuste: `minWorkspaces = 0` (parar de mostrar workspaces vazias)
+
+**Problema:** o Alt+Tab mostrava sempre as workspaces 1 a 5, mesmo sem
+nenhuma janela aberta nelas — poluindo o switcher com cards "Empty".
+
+**Causa:** `minWorkspaces` (padrão `5`) força o switcher a sempre incluir as
+workspaces `1..N` no `Ribbon.qml`, independente de existirem ou terem
+janelas. Confirmado no código-fonte do plugin
+(`~/.config/omarchy/plugins/io.github.woogy7.workspaces/Ribbon.qml:149-167`):
+a lógica nunca filtra por ocupação (`toplevels.length`), só decide quais IDs
+entram na lista.
+
+**Por que reduzir pra `0` já resolve na prática:** este sistema não tem
+nenhuma workspace marcada como persistente (`~/.config/hypr/` e os defaults
+do Omarchy não têm `persistent_workspaces`/`workspace { persistent: true }`).
+Por padrão, o Hyprland já destrói sozinho uma workspace assim que ela fica
+vazia **e** deixa de estar visível em algum monitor. Ou seja, com
+`minWorkspaces = 0` o switcher só vai listar: (a) workspaces com pelo menos
+uma janela, ou (b) a workspace atual do monitor, mesmo que momentaneamente
+vazia (inevitável — é onde você está).
+
+**Correção:**
+
+```bash
+~/.config/omarchy/plugins/io.github.woogy7.workspaces/switcher-config set minWorkspaces 0
+```
+
+Aplica na hora (mesmo mecanismo de `shell.json` observado ao vivo da 14.1).
+
+**Observações:**
+
+- **Não existe** filtro real de "só ocupadas" no plugin — nenhuma config
+  (nem a que o Setup menu exporia, ver `omarchy-menu.jsonc` do plugin)
+  checa `toplevels.length > 0`. `minWorkspaces = 0` funciona aqui só porque o
+  Hyprland deste sistema não persiste workspaces vazias.
+- Se um dia este sistema passar a ter `persistent_workspaces` configurado
+  (ou workspaces "pinadas"), esse ajuste sozinho não vai mais esconder tudo
+  — nesse caso as opções seriam editar o `Ribbon.qml` (deixa de ser
+  atualizável via `omarchy plugin update` sem reaplicar) ou abrir uma issue
+  no repo (https://github.com/Woogy7/omarchy-workspace-switcher) pedindo um
+  filtro de ocupação nativo.
+- **Reverter:** `switcher-config set minWorkspaces 5` (volta ao padrão) ou
+  `switcher-config unset minWorkspaces`.
 
 ---
 
