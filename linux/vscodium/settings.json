@@ -22,8 +22,6 @@
     "editor.guides.indentation": false,
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
-    // "files.autoSave": "afterDelay",
-    // "files.autoSaveDelay": 1000,
     "files.associations": {
         "*.erb": "ruby"
     },
@@ -43,8 +41,6 @@
     "explorer.confirmDragAndDrop": false,
     "explorer.compactFolders": false, // Evita agrupar pastas vazias
     "explorer.decorations.badges": false,
-    "material-icon-theme.hidesExplorerArrows": true,
-    // --- Terminal ---
     "terminal.explorerKind": "external",
     "terminal.external.linuxExec": "foot",
     "terminal.integrated.defaultLocation": "editor", // Terminal na área de edição
@@ -120,6 +116,7 @@
         "php"
     ],
     "window.customTitleBarVisibility": "windowed",
+    "window.title": " ",
     "workbench.layoutControl.enabled": false,
     "window.menuBarVisibility": "toggle",
     "workbench.browser.showInTitleBar": false,
