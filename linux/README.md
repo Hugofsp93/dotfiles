@@ -32,10 +32,15 @@ cp linux/.XCompose ~/.XCompose
 hyprctl reload
 omarchy restart xcompose
 omarchy restart terminal
+
+# Editor padrão: nano (git commit, crontab, sudoedit...)
+mkdir -p ~/.local/state/omarchy/defaults
+echo nano > ~/.local/state/omarchy/defaults/editor
 ```
 
 ## Dependências
 
 - Omarchy (Arch + Hyprland)
 - fish como shell padrão: `chsh -s /usr/bin/fish`
+- nano: `pacman -S nano`
 - JetBrainsMono Nerd Font

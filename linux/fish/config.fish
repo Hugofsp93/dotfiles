@@ -28,6 +28,9 @@ if status is-interactive
     # Git
     alias g='git'
 
+    # bat/cat
+    alias cat='bat'
+
     # Abrir arquivo/URL no app padrão
     function open
         xdg-open $argv >/dev/null 2>&1 &
