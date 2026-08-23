@@ -2,6 +2,9 @@
 # OMARCHY_PATH e PATH já vêm herdados da sessão (uwsm), não precisa setar aqui.
 
 if status is-interactive
+    # Sem mensagem de boas-vindas
+    set fish_greeting ""
+
     # Prompt starship (mesmo visual do bash no Omarchy)
     starship init fish | source
 
