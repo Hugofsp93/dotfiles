@@ -447,4 +447,122 @@ rtk init --global --agent claude --auto-patch
 
 ---
 
+## 14. Plugin Omarchy: Workspace Switcher (alt-tab de workspaces)
+
+**Motivo:** o ALT+TAB padrão do Hyprland cicla foco entre janelas abertas.
+Preferência por um Alt+Tab "estilo Windows" aplicado a *workspaces* em vez de
+janelas: segurar Alt, bater Tab pra navegar com preview ao vivo de cada
+workspace, soltar Alt pra confirmar a troca.
+
+**Plugin:** [Workspace Switcher](https://github.com/Woogy7/omarchy-workspace-switcher)
+(Woogy7, MIT, v0.2.0), instalado via
+[Omarchy Plugin Marketplace](https://omarchyplugins.com/plugin.html?id=io.github.woogy7.workspaces)
+(`omarchy plugin`, gerenciador nativo de plugins de shell do Omarchy — nada a
+ver com opencode/Claude Code das seções 12/13).
+
+**Requisitos (já atendidos neste sistema):** Omarchy ≥ 4.0 com config Lua
+(`4.0.0.alpha` instalado) e Quickshell com `ScreencopyView` (`quickshell-git`
+instalado).
+
+**Comando de instalação:**
+
+```bash
+omarchy plugin add https://github.com/Woogy7/omarchy-workspace-switcher.git --enable
+```
+
+Instala em `~/.config/omarchy/plugins/io.github.woogy7.workspaces/`.
+
+**Arquivo:** `~/.config/hypr/bindings.lua` (backup:
+`~/.config/hypr/bindings.lua.bak.20260823193143`)
+
+**Trecho adicionado (no final do arquivo):**
+
+```lua
+-- Workspace Switcher (io.github.woogy7.workspaces): ALT+TAB agora troca de
+-- workspace (estilo Alt+Tab do Windows: segura ALT, bate TAB pra navegar,
+-- solta ALT pra confirmar). SUPER+TAB continua como padrão (próxima workspace).
+local switcher = { id = "io.github.woogy7.workspaces", timer = nil, held = false }
+local hold_keys = { "Alt_L", "Alt_R" }
+
+local function switcher_send(action)
+  hl.exec_cmd("omarchy-shell shell summon " .. switcher.id
+    .. " '{\"action\":\"" .. action .. "\",\"modifier\":\"alt\"}'")
+end
+
+local function switcher_watch_release()
+  if switcher.held then return end
+  switcher.held = true
+  if switcher.timer then switcher.timer:set_enabled(false) end
+  switcher.timer = hl.timer(function()
+    if not switcher.held then return end
+    local down = false
+    for _, k in ipairs(hold_keys) do if hl.is_key_down(k) then down = true end end
+    if not down then
+      switcher.held = false
+      if switcher.timer then switcher.timer:set_enabled(false) end
+      switcher_send("commit")
+    end
+  end, { timeout = 25, type = "repeat" })
+end
+
+hl.unbind("ALT + TAB")
+hl.unbind("ALT + SHIFT + TAB")
+o.bind("ALT + TAB", "Workspace switcher (next)", function()
+  switcher_send(switcher.held and "next" or "open-next")
+  switcher_watch_release()
+end)
+o.bind("ALT + SHIFT + TAB", "Workspace switcher (previous)", function()
+  switcher_send(switcher.held and "prev" or "open-prev")
+  switcher_watch_release()
+end)
+```
+
+**Como aplicar:**
+
+```bash
+hyprctl reload && hyprctl configerrors
+```
+
+### 14.1 Ajuste: `tapAction` = `switch` (correção de bug de UX)
+
+**Problema:** com o `tapAction` padrão (`"browse"`), soltar o Alt às vezes
+trocava de workspace na hora e às vezes ficava parado no card selecionado,
+esperando `Enter` — comportamento inconsistente (o padrão trata um toque
+"rápido" no Alt+Tab de forma diferente de um hold mais longo).
+
+**Correção:** setar `tapAction` para `"switch"`, que sempre troca ao soltar o
+Alt, com ou sem ciclar — igual ao Windows.
+
+```bash
+~/.config/omarchy/plugins/io.github.woogy7.workspaces/switcher-config set tapAction switch
+```
+
+Aplica na hora (o `~/.config/omarchy/shell.json` é observado ao vivo, sem
+precisar de reload/restart). Config efetiva salva ali, dentro da entrada do
+plugin em `plugins[]`.
+
+**Observações:**
+
+- Este é o snippet oficial do plugin (`bindings.example.lua`), **sem** o
+  bloco extra que ele oferece em `SUPER+TAB` (picker) — `SUPER+TAB` foi
+  deixado intocado, continua como "próxima workspace".
+- ⚠️ `ALT+TAB` e `ALT+SHIFT+TAB` deixaram de ciclar foco entre janelas
+  (comportamento padrão em
+  `/usr/share/omarchy/default/hypr/bindings/tiling.lua:44-47`). Troca
+  intencional — não há mais bind de "ciclar janela" nessas teclas.
+- Menu Setup do plugin (`switcher-config menu install`) **não** foi
+  instalado — só o plugin + os keybindings. O binário
+  `~/.config/omarchy/plugins/io.github.woogy7.workspaces/switcher-config`
+  continua disponível se quiser ativar depois (`menu install`, `bar on/off`,
+  `set <chave> <valor>` etc. — configs ficam em `~/.config/omarchy/shell.json`).
+- Bar widget do plugin (chip de workspace) habilitado junto, sem conflito
+  com o widget nativo `omarchy.workspaces`.
+- **Reverter:** remover o bloco acima de `~/.config/hypr/bindings.lua`,
+  `hyprctl reload`, depois `omarchy plugin remove io.github.woogy7.workspaces`.
+- ⚠️ **Pendente:** `~/.config/hypr/bindings.lua` ainda não está espelhado em
+  `~/dotfiles/linux/hypr/` (só `input.lua` e `monitors.lua` estão lá, seção 9)
+  — avaliar se vale adicionar.
+
+---
+
 *(novas mudanças serão adicionadas abaixo)*
