@@ -1,0 +1,35 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+      "key": "ctrl+o",
+      "command": "runCommands",
+      "when": "config.workbench.statusBar.visible",
+      "args": {
+        "commands": [
+          "workbench.action.editorActionsDefault",
+          "workbench.action.toggleStatusbarVisibility",
+          "breadcrumbs.toggle"
+        ]
+      }
+    },
+    {
+      "key": "ctrl+o",
+      "command": "runCommands",
+      "when": "!config.workbench.statusBar.visible",
+      "args": {
+        "commands": [
+          "workbench.action.editorActionsTitleBar",
+          "workbench.action.toggleStatusbarVisibility",
+          "breadcrumbs.toggle"
+        ]
+      }
+    },
+    {
+      "key": "ctrl+h",
+      "command": "markdown.showPreview"
+    },
+    {
+      "key": "alt+shift+p",
+      "command": "workbench.action.openRecent"
+    }
+  ]

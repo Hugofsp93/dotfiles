@@ -1,0 +1,152 @@
+{
+    // --- Editor & Comportamento ---
+    "editor.fontSize": 14,
+    "editor.tabSize": 2,
+    "editor.fontLigatures": true,
+    "editor.formatOnPaste": true,
+    "editor.multiCursorModifier": "ctrlCmd", // Cmd+Click para múltiplos cursores
+    "editor.snippetSuggestions": "top",
+    "editor.suggestSelection": "first",
+    "editor.inlineSuggest.enabled": true,
+    "editor.codeLens": false,
+    "editor.minimap.enabled": false,
+    "editor.colorDecorators": true, // Mostra quadradinho da cor
+    "editor.cursorStyle": "block",
+    "editor.cursorBlinking": "blink",
+    "editor.smoothScrolling": true,
+    "editor.renderWhitespace": "none",
+    "editor.scrollbar.horizontal": "hidden",
+    "editor.scrollbar.vertical": "visible",
+    "editor.overviewRulerBorder": false,
+    "editor.stickyScroll.enabled": false,
+    "editor.guides.indentation": false,
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    // "files.autoSave": "afterDelay",
+    // "files.autoSaveDelay": 1000,
+    "files.associations": {
+        "*.erb": "ruby"
+    },
+    "diffEditor.ignoreTrimWhitespace": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    // --- Workbench (Interface Geral) ---
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.colorTheme": "Maron Theme: Nordic Warriors",
+    "workbench.iconTheme": "gruvbox-material-icons",
+    "workbench.activityBar.location": "top",
+    "workbench.sideBar.location": "right",
+    "workbench.panel.defaultLocation": "top", // Esconde controles de layout na barra de título
+    "workbench.tree.enableStickyScroll": true,
+    "workbench.tree.indent": 16,
+    "window.zoomLevel": 1,
+    // --- Explorer ---
+    "explorer.confirmDragAndDrop": false,
+    "explorer.compactFolders": false, // Evita agrupar pastas vazias
+    "explorer.decorations.badges": false,
+    "material-icon-theme.hidesExplorerArrows": true,
+    // --- Terminal ---
+    "terminal.explorerKind": "external",
+    "terminal.external.linuxExec": "foot",
+    "terminal.integrated.defaultLocation": "editor", // Terminal na área de edição
+    "terminal.integrated.defaultProfile.linux": "fish",
+    "terminal.integrated.profiles.linux": {
+        "fish": {
+            "path": "fish",
+            "icon": "terminal"
+        }
+    },
+    "terminal.integrated.useWslProfiles": false,
+    "terminal.integrated.showExitAlert": false,
+    "terminal.integrated.cursorStyle": "underline",
+    "terminal.integrated.cursorWidth": 5,
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.lineHeight": 1.4,
+    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
+    "terminal.integrated.env.linux": {},
+    // --- Git & GitLens ---
+    "git.enableSmartCommit": false,
+    "git.ignoreMissingGitWarning": true,
+    "git.openRepositoryInParentFolders": "never",
+    "gitlens.advanced.messages": {
+        "suppressGitMissingWarning": true,
+    },
+    // --- Linguagens & Extensões ---
+    "css.lint.float": "warning",
+    "css.lint.hexColorLength": "warning",
+    "js/ts.updateImportsOnFileMove.enabled": "always",
+    "extensions.ignoreRecommendations": true,
+    "update.mode": "start",
+    // --- Customizações de Cores ---
+    "workbench.colorCustomizations": {
+        "editorCursor.foreground": "#F0EBE7",
+        "editor.selectionBackground": "#545465",
+        "terminal.background": "#1e201f",
+        "terminal.foreground": "#202321",
+        // Cores ANSI do Terminal
+        "terminal.ansiBlack": "#212221",
+        "terminal.ansiRed": "#A73456",
+        "terminal.ansiGreen": "#58953B",
+        "terminal.ansiYellow": "#D1A245",
+        "terminal.ansiMagenta": "#A661B3",
+        "terminal.ansiCyan": "#469CB0",
+        "terminal.ansiWhite": "#FFFFFF",
+        "terminal.ansiBrightBlack": "#584F6C",
+        "terminal.ansiBrightRed": "#afd6af",
+        "terminal.ansiBrightGreen": "#80C15C",
+        "terminal.ansiBrightYellow": "#F0CB75",
+        "terminal.ansiBrightMagenta": "#D391DD",
+        "terminal.ansiBrightCyan": "#77C6D3",
+        "terminal.ansiBrightWhite": "#F0EBE7",
+        "editorIndentGuide.background1": "#39394d",
+        "editorIndentGuide.activeBackground1": "#80C15C"
+    },
+    "editor.tokenColorCustomizations": {
+        "comments": "#6b6b78"
+    },
+    "launch": {
+        "configurations": [],
+        "compounds": []
+    },
+    "debug.showInStatusBar": "never",
+    "workbench.view.showQuietly": {
+        "workbench.panel.output": false
+    },
+    "custom-ui-style.extensions.config": {},
+    "php.suggest.basic": false,
+    "php.validate.enable": false,
+    "emmet.excludeLanguages": [
+        "markdown",
+        "php"
+    ],
+    "window.customTitleBarVisibility": "windowed",
+    "workbench.layoutControl.enabled": false,
+    "window.menuBarVisibility": "toggle",
+    "workbench.browser.showInTitleBar": false,
+    "window.commandCenter": false,
+    "workbench.productIconTheme": "icons-carbon",
+    "workbench.statusBar.visible": false,
+    "breadcrumbs.enabled": false,
+    "custom-ui-style.agents.stylesheet": {
+        ".sidebar": "border: none !important;",
+        ".sidebar .scrollbar": "display: none;",
+        ".sidebar .title-label": "display: none !important;",
+        ".editor": "border: none !important;",
+        ".monaco-scrollable-element>.scrollbar>.slider": "max-height: 55px;",
+        ".text-ide-sidebar-title-color": "display: none;",
+        ".monaco-workbench .part.titlebar>.titlebar-container>.titlebar-right>.action-toolbar-container .open-agent-manager-button": "display: none;",
+        ".monaco-workbench .part.editor>.content .editor-group-container>.antigravity-welcome-container": "display: none;",
+        ".monaco-editor .sticky-widget": "border-bottom: 3px solid #80C15C; box-shadow: none;",
+        ".monaco-editor .line-numbers": "color: #6b6b78; !important;",
+        ".monaco-editor .scroll-decoration": "box-shadow: none;",
+        ".monaco-workbench .part.editor>.content .editor-group-container>.title>.tabs-and-actions-container": "--tabs-border-bottom-color: transparent !important;",
+        ".scm-view .monaco-list-row .resource-group>.name": "display: none !important;",
+        ".scm-view .monaco-list .monaco-list-row .resource-group>.actions": "display: block !important;",
+        ".scm-view .monaco-list-row .resource-group": "justify-content: end;",
+        ".monaco-dropdown>.dropdown-label": "display: none !important;",
+        ".monaco-scrollable-element>.shadow.top": "box-shadow: none !important",
+        ".monaco-list-row.focused.selected": "outline: none !important;",
+        ".monaco-workbench .part.titlebar>.titlebar-container .monaco-toolbar .actions-container": "display: none;",
+    },
+    "custom-ui-style.font.sansSerif": "JetBrainsMono Nerd Font Mono"
+}

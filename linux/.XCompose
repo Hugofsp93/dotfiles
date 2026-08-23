@@ -1,0 +1,12 @@
+# Run omarchy-restart-xcompose to apply changes
+
+# Include fast emoji access
+include "/usr/share/omarchy/default/xcompose"
+
+# Cedilha estilo ABNT2: ; + c = ç (mesma posição da tecla ç no ABNT2)
+<semicolon> <c> : "ç" ccedilla
+<semicolon> <C> : "Ç" Ccedilla
+
+# Identification
+<Multi_key> <space> <n> : ""
+<Multi_key> <space> <e> : "hugofsp93@hotmail.com"
