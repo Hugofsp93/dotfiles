@@ -692,4 +692,33 @@ variante "detalhada" com git.
 
 ---
 
+## 16. Plugin Omarchy: Bar Studio (editor visual da bar)
+
+**Motivo:** editor visual pra bar do Omarchy — mover widgets entre
+esquerda/centro/direita, reordenar, recolher no tray, salvar perfis de
+layout — sem precisar editar `shell.json`/`omarchy bar set` na mão.
+
+**Plugin:** [Bar Studio](https://github.com/andreconde21/omarchy-bar-studio)
+(André Conde, MIT, v0.1.0), `id` de manifest `andreconde.bar-studio`.
+
+```bash
+omarchy plugin add https://github.com/andreconde21/omarchy-bar-studio.git --enable
+```
+
+Instalado em `~/.config/omarchy/plugins/andreconde.bar-studio/`.
+
+**Observações:**
+
+- Só `bar-widget` (sem overlay/keybinding) — nenhum outro arquivo do sistema
+  foi tocado além da instalação do próprio plugin.
+- **Reverter:** `omarchy plugin remove andreconde.bar-studio`.
+- Outras duas tentativas de plugin na mesma sessão **não vingaram**:
+  - `fross100/omaplug` — instalado e removido logo em seguida
+    (`omarchy plugin remove omaplug` + `rm -rf`).
+  - `dlpwaters/omarchy-retro-library` — comando rodado, mas não gerou pasta
+    em `~/.config/omarchy/plugins/` nem aparece no `omarchy plugin list`;
+    aparentemente falhou ou foi interrompido antes de concluir.
+
+---
+
 *(novas mudanças serão adicionadas abaixo)*
