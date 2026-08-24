@@ -721,4 +721,36 @@ Instalado em `~/.config/omarchy/plugins/andreconde.bar-studio/`.
 
 ---
 
+## 17. Plugins Omarchy: mais 4 (Docker VMs, Favorite Folders, Sensei, Omascratch)
+
+**Comandos:**
+
+```bash
+omarchy plugin add https://github.com/dicemans/omarchy-plugin-docker-vms.git --enable
+omarchy plugin add https://github.com/MrDemonc/Omarchy-favorite-folders.git --enable
+omarchy plugin add https://github.com/nilszeilon/omarchy-sensei.git --enable
+omarchy plugin add https://github.com/weedwhitesandwine/omascratch.git --enable
+```
+
+| Plugin | `id` | O que faz |
+|---|---|---|
+| **Docker VMs** | `io.github.dicemans.docker-vms` | Start/restart/stop/remove containers Docker pela bar; abre sessão desktop em VMs Windows |
+| **Favorite Folders** | `omarchy-favorite-folders` | Popup na bar com atalhos de pastas favoritas, abre no gerenciador de arquivos padrão |
+| **Omarchy Sensei** | `io.github.nilszeilon.omarchy-sensei` | Transforma hábitos de mouse em tarefas via teclado |
+| **Omascratch** | `io.github.weedwhitesandwine.omascratch` | Bloco de notas rápido docado num canto da tela; toggle por keybind ou ícone na bar (`omarchy-shell shell toggle io.github.weedwhitesandwine.omascratch`) |
+
+Instalados em `~/.config/omarchy/plugins/<id>/`.
+
+**Observações:**
+
+- **Reverter (cada um):** `omarchy plugin remove <id>`.
+- Tentativa que não vingou na mesma leva: `fernandomenolli/omarchy-sill` —
+  comando rodado, sem pasta gerada nem entrada no `omarchy plugin list`
+  (mesmo padrão de falha silenciosa do `omarchy-retro-library`, seção 16).
+- Nenhuma configuração adicional (keybindings, menu Setup) foi feita além
+  do `--enable` de cada instalação — ainda não explorado o que cada um
+  configura por dentro.
+
+---
+
 *(novas mudanças serão adicionadas abaixo)*
