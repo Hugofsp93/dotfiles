@@ -642,4 +642,54 @@ Aplica na hora (mesmo mecanismo de `shell.json` observado ao vivo da 14.1).
 
 ---
 
+## 15. Fish: alias `ls2` (ls mostrando 1 nível de subpasta)
+
+**Motivo:** `ls` só mostra o diretório atual; `lt` (seção 5) já existe mas é
+uma variante *tree* com `--long --git`, pensada pra outro uso. Faltava um
+`ls` "normal" que também espiasse 1 nível dentro de cada subpasta, sem virar
+uma árvore completa nem trocar o estilo do `ls` do dia a dia.
+
+**Arquivo:** `~/.config/fish/config.fish` (sincronizado em
+`linux/fish/config.fish`)
+
+**Alias adicionado** (logo depois de `lta`):
+
+```fish
+alias ls2='eza -lh --group-directories-first --icons=auto --no-permissions --tree --level=2'
+```
+
+É exatamente o mesmo `ls` da seção 5 com `--tree --level=2` acrescentado —
+mesmo estilo visual, só que descendo 1 nível a mais em cada subpasta.
+
+**Como aplicar:** vale em terminais novos (aliases do fish só carregam em
+sessão interativa). Testado com `fish -i -c "ls2 <pasta>"`.
+
+**Observações:**
+
+- Comparado ao `lt`/`lta` (tree completa, formato longo + status do git),
+  o `ls2` é mais raso (só 1 nível) e sem `--git`, focado em dar uma espiada
+  rápida no conteúdo das subpastas sem trocar de diretório.
+- Para mais níveis, é só copiar o alias trocando `--level=2` por `--level=3`
+  etc. (nível 1 = só o diretório atual, igual ao `ls`).
+
+### 15.1 Ajuste: `--no-permissions` no `ls` e no `ls2`
+
+**Motivo:** a coluna "Permissions" (`drwxr-xr-x` etc.) do formato longo do
+`eza` não era usada no dia a dia — só ocupava espaço na saída.
+
+**Arquivo:** `~/.config/fish/config.fish` (sincronizado em
+`linux/fish/config.fish`)
+
+```fish
+alias ls='eza -lh --group-directories-first --icons=auto --no-permissions'
+alias ls2='eza -lh --group-directories-first --icons=auto --no-permissions --tree --level=2'
+```
+
+`--no-permissions` é uma flag nativa do `eza` (suprime só o campo de
+permissões do formato longo, sem afetar tamanho/usuário/data). `lt`/`lta`
+(seção 5) não foram alterados — continuam mostrando permissões, já que são a
+variante "detalhada" com git.
+
+---
+
 *(novas mudanças serão adicionadas abaixo)*

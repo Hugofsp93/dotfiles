@@ -15,10 +15,11 @@ if status is-interactive
     mise activate fish | source
 
     # ls turbinado com eza (mesmos aliases do bash do Omarchy)
-    alias ls='eza -lh --group-directories-first --icons=auto'
+    alias ls='eza -lh --group-directories-first --icons=auto --no-permissions'
     alias lsa='ls -a'
     alias lt='eza --tree --level=2 --long --icons --git'
     alias lta='lt -a'
+    alias ls2='eza -lh --group-directories-first --icons=auto --no-permissions --tree --level=2'
 
     # Atalhos de diretório
     alias ..='cd ..'
