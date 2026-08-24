@@ -753,4 +753,71 @@ Instalados em `~/.config/omarchy/plugins/<id>/`.
 
 ---
 
+## 18. Herdr: sidebar recolhe com `Ctrl+B` direto (sem prefixo)
+
+**Motivo:** o padrão do Herdr (`prefix+b`, ou seja `Ctrl+Space` solta depois
+`b`) pra recolher/expandir a sidebar é dois passos. Preferência por um atalho
+único.
+
+**Arquivo:** `~/.config/herdr/config.toml`
+
+**Trecho adicionado** (dentro de `[keys]`, logo depois de `copy_mode`):
+
+```toml
+# Sidebar
+toggle_sidebar = "ctrl+b"
+```
+
+**Como aplicar:**
+
+```bash
+herdr server reload-config
+```
+
+**Observações:**
+
+- `Ctrl+B` sem `prefix+` vira global — o Herdr intercepta a tecla antes dela
+  chegar no programa rodando dentro do pane (shell, editor, etc.). Sem
+  problema aqui: não uso bash interativo, vim nem less dentro do Herdr —
+  `Ctrl+B` seria usado por eles (readline: cursor pra esquerda; vim/less:
+  rolar página). `nano` (editor padrão, seção 11) geralmente roda fora do
+  Herdr.
+- **Reverter:** apagar a linha `toggle_sidebar = "ctrl+b"` (ou trocar de
+  volta pra `"prefix+b"`) e rodar `herdr server reload-config` de novo.
+- ⚠️ **Pendente:** `~/.config/herdr/` ainda não está espelhado em
+  `~/dotfiles/` (não existe pasta `herdr/` lá) — avaliar se vale adicionar,
+  igual ficou pendente pro `bindings.lua` (seção 14).
+
+---
+
+## 19. Fish: alias `nano` → `fresh`
+
+**Motivo:** instalado o editor `fresh` (v0.4.10) e virou preferência sobre o
+`nano` puro (seção 11) pra edições rápidas de terminal. Mesmo padrão do
+`alias cat='bat'`: mantém o comando familiar (`nano`), troca o binário por
+baixo.
+
+**Arquivo:** `~/.config/fish/config.fish` (sincronizado em
+`linux/fish/config.fish`)
+
+**Alias adicionado** (logo depois de `alias cat='bat'`):
+
+```fish
+alias nano='fresh'
+```
+
+**Como aplicar:** vale em terminais novos (aliases do fish só carregam em
+sessão interativa). Testado com `fish -i -c "type nano"`.
+
+**Observações:**
+
+- Só afeta digitar `nano` manualmente num shell fish interativo. O editor
+  padrão do sistema (`~/.local/state/omarchy/defaults/editor`, seção 11)
+  continua apontando pro binário `nano` de verdade — ferramentas que chamam
+  `$EDITOR`/`nano` diretamente (git commit, crontab, sudoedit) não passam
+  pelo alias do fish e continuam abrindo o `nano` original.
+- **Reverter:** remover a linha `alias nano='fresh'`.
+
+---
+
 *(novas mudanças serão adicionadas abaixo)*

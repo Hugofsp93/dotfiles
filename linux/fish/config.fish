@@ -32,6 +32,9 @@ if status is-interactive
     # bat/cat
     alias cat='bat'
 
+    # fresh/nano
+    alias nano='fresh'
+
     # Abrir arquivo/URL no app padrão
     function open
         xdg-open $argv >/dev/null 2>&1 &
