@@ -820,4 +820,52 @@ sessão interativa). Testado com `fish -i -c "type nano"`.
 
 ---
 
+## 20. Plugin Omarchy: System Stats (CPU/GPU/memória/storage na bar)
+
+**Motivo:** monitorar CPU, GPU, RAM e disco direto na bar, com vários números
+visíveis ao mesmo tempo (não só um resumo único), clicando pra ver mais
+detalhe.
+
+**Plugin certo:** [dizziee.system-stats](https://github.com/JJDizz1L/dizziee.system-stats)
+(Dizziee, MIT, v1.0.2) — cada categoria (CPU/GPU/memória/storage) tem seu
+próprio toggle `showInBar`, então dá pra ligar as 4 simultaneamente.
+
+⚠️ **Pegadinha:** existe outro plugin com o **mesmo nome de exibição**
+("System Stats"), [saif.system-stats](https://github.com/SaifOmar/SystemStats) —
+instalado por engano primeiro. Esse outro não tem GPU e só mostra 1 ícone +
+popup (sem múltiplos números simultâneos na bar). Foi removido.
+
+```bash
+omarchy plugin add https://github.com/JJDizz1L/dizziee.system-stats.git --enable
+```
+
+Já entra na bar automaticamente (`bar.layout.right`).
+
+**Config aplicada** (liga os 4 compartimentos na bar, CPU/GPU mostrando
+temperatura em vez de uso):
+
+```bash
+omarchy bar set dizziee.system-stats compartments '{
+  "cpu": { "enabled": true, "showInBar": true, "barDisplay": "temp", "pollIntervalSec": 30 },
+  "gpu": { "enabled": true, "showInBar": true, "barDisplay": "temp", "pollIntervalSec": 30 },
+  "memory": { "enabled": true, "showInBar": true, "pollIntervalSec": 30 },
+  "storage": { "enabled": true, "showInBar": true, "pollIntervalSec": 30 }
+}' --json
+```
+
+Aplica na hora (mesmo mecanismo de `shell.json` observado ao vivo já visto
+nas seções 14/16).
+
+**Observações:**
+
+- `gpu.enabled` vem `false` por padrão no plugin — precisa ligar explicitamente
+  (feito acima) além do `showInBar`.
+- Memória e storage não têm opção `barDisplay` (só uso, sem escolha de
+  métrica) — só CPU e GPU alternam entre `usage`/`temp`/`both`.
+- **Reverter pra uso em vez de temperatura:** trocar `"temp"` por `"usage"`
+  no comando acima.
+- **Remover:** `omarchy plugin remove dizziee.system-stats`.
+
+---
+
 *(novas mudanças serão adicionadas abaixo)*
