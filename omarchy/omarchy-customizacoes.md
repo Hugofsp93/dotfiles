@@ -868,4 +868,90 @@ nas seções 14/16).
 
 ---
 
+## 21. Bluetooth: reconexão automática da caixa de som (BlueZ não faz sozinho)
+
+**Motivo:** a caixa de som Bluetooth (EDIFIER MP85) não conectava sozinha ao
+ligar — só funcionava desligando/ligando o Bluetooth do PC e clicando em
+conectar manualmente.
+
+**Diagnóstico** (via `sudo btmon`, captura HCI ao vivo): quando a caixa liga
+e "pagina" o PC, o BlueZ aceita o link básico e faz uma consulta SDP
+perguntando onde fica o serviço A2DP — recebe a resposta certinha e **para
+aí**. Nenhum erro, nenhuma nova tentativa: confirmado esperando mais de 2,5
+minutos sem nada acontecer. Um link iniciado pelo periférico não dispara
+sozinho a conexão dos perfis de áudio no BlueZ — precisa de alguém chamando
+`Connect()` explicitamente (é o que o clique manual fazia). A regra
+`bluez5.auto-connect` que já existia em
+`~/.config/wireplumber/wireplumber.conf.d/bluetooth-a2dp-autoconnect.conf`
+não é suficiente sozinha — confirmado que não dispara nesse cenário.
+
+**Arquivos criados:**
+
+`~/.local/bin/bluetooth-reconnect`:
+```bash
+#!/bin/bash
+# BlueZ não dispara sozinho a conexão do perfil A2DP quando um periférico
+# pareado só reaparece (fica travado na fase de SDP browse, sem nunca
+# chamar Connect()). Isso força a chamada periodicamente. Chamar connect
+# num dispositivo que já está com áudio funcionando não quebra nada.
+
+bluetoothctl devices Paired 2>/dev/null | while read -r _ mac _; do
+  bluetoothctl connect "$mac" >/dev/null 2>&1
+done
+
+exit 0
+```
+
+`~/.config/systemd/user/bluetooth-reconnect.service`:
+```ini
+[Unit]
+Description=Reconecta dispositivos Bluetooth pareados (BlueZ não faz sozinho)
+After=bluetooth.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/bluetooth-reconnect
+```
+
+`~/.config/systemd/user/bluetooth-reconnect.timer`:
+```ini
+[Unit]
+Description=Roda a reconexão de Bluetooth periodicamente
+
+[Timer]
+OnBootSec=5s
+OnUnitActiveSec=5s
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target
+```
+
+**Como aplicar:**
+
+```bash
+chmod +x ~/.local/bin/bluetooth-reconnect
+systemctl --user daemon-reload
+systemctl --user enable --now bluetooth-reconnect.timer
+```
+
+**Observações:**
+
+- `Type=oneshot` roda o script até o fim (tenta `connect` em cada dispositivo
+  pareado) e sai — o timer dispara de novo 5s depois que ele termina, não é
+  overlap.
+- Sai sempre com `exit 0`, mesmo se o `bluetoothctl connect` falhar (caixa
+  desligada é o caso normal, não é erro) — evita marcar o serviço como
+  "failed" toda hora no `systemctl --user status`.
+- Intervalo original era 15s; reduzido pra 5s a pedido, sem problema —
+  cada tentativa contra um dispositivo ausente falha rápido (~5-6s) e não
+  se acumula.
+- **Reverter:** `systemctl --user disable --now bluetooth-reconnect.timer`
+  e apagar os 3 arquivos acima.
+- ⚠️ **Pendente:** nenhum desses 3 arquivos está espelhado em `~/dotfiles/`
+  ainda — mesma situação já registrada pro `bindings.lua` (seção 14) e pro
+  `herdr` (seção 18).
+
+---
+
 *(novas mudanças serão adicionadas abaixo)*
