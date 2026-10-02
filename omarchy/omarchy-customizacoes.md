@@ -965,6 +965,35 @@ omarchy plugin add https://github.com/crmne/omastats.git --enable --yes
 
 **Reverter:** `omarchy plugin remove crmne.omastats`.
 
+**Config atual** (módulos, estilo, sensores na barra, cores, intervalo —
+tudo configurado pelo painel do próprio plugin), salva inline no
+`~/.config/omarchy/shell.json`, dentro de `bar.layout`:
+
+```json
+{
+  "id": "crmne.omastats",
+  "barDisks": "all:used",
+  "barLabels": "icon",
+  "barSensors": "cpu,gpu",
+  "cpuStyle": "text",
+  "disksStyle": "text",
+  "gpuStyle": "text",
+  "gpuTabVersion": 1,
+  "memoryStyle": "text",
+  "modules": "sensors,memory,disks",
+  "networkStyle": "text",
+  "showProcesses": true,
+  "tabs": "cpu,gpu,memory,disks,sensors,battery",
+  "utilizationColors": false,
+  "refreshSeconds": 2,
+  "historySeconds": 120
+}
+```
+
+**Pra levar pra outro PC:** instala o plugin lá e copia esse bloco pra
+dentro do `bar.layout` do `shell.json` novo (ou copia o `shell.json` inteiro)
+— carrega com a config idêntica, sem reconfigurar na mão.
+
 ## 23. Omaland — editor de look-and-feel do Hyprland
 
 ```bash
