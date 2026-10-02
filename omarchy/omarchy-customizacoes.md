@@ -954,4 +954,53 @@ systemctl --user enable --now bluetooth-reconnect.timer
 
 ---
 
+## 22. OmaStats — plugin de sistema atual (CPU/GPU/mem/disco)
+
+Substitui o `dizziee.system-stats` da seção 20. NVIDIA suportado via
+`nvidia-smi`.
+
+```bash
+omarchy plugin add https://github.com/crmne/omastats.git --enable --yes
+```
+
+**Reverter:** `omarchy plugin remove crmne.omastats`.
+
+## 23. Omaland — editor de look-and-feel do Hyprland
+
+```bash
+omarchy plugin add https://github.com/bobby-nicholas/omaland.git --enable --yes
+```
+
+Abre pelo menu do Omarchy buscando "Omaland", ou:
+```bash
+omarchy-shell shell toggle bobbynicholas.omaland
+```
+
+**Reverter:** `omarchy plugin remove bobbynicholas.omaland`.
+
+## 24. Lock Screen Explorer
+
+```bash
+omarchy plugin add https://github.com/SirJul1337/omarchy-lock-explorer.git --enable --yes
+```
+
+⚠️ Desativa o `omarchy.lock` nativo automaticamente (os dois controlam a
+tela de bloqueio, não coexistem) — a tela de bloqueio é governada por este
+plugin.
+
+**Reverter:** `omarchy plugin remove io.github.sirjul1337.lock-explorer --yes`
+depois `omarchy plugin enable omarchy.lock`.
+
+## 25. Omarchy Spotify — plugin no lugar do app nativo
+
+Usa ~60MB RAM (vs ~950MB do app nativo Electron). Login/credenciais
+próprios, independentes do app nativo. Exige conta **Spotify Premium**.
+
+```bash
+omarchy plugin add https://github.com/stappmus/Omarchy-Spotify.git --enable
+omarchy pkg drop spotify   # remove o app nativo (precisa sudo interativo)
+```
+
+---
+
 *(novas mudanças serão adicionadas abaixo)*
