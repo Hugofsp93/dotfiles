@@ -37,7 +37,6 @@ Os comandos `/plugin ...` dentro do Claude Code fazem o mesmo.
 
 | Chave | Valor | Efeito |
 |---|---|---|
-| `viewMode` | `"verbose"` | Mostra o output completo das ferramentas e o raciocínio |
 | `tui` | `"fullscreen"` | Interface em tela cheia |
 | `env.DISABLE_AUTOUPDATER` | `"1"` | Sem auto-update e sem o aviso de "atualize" (atualizo pelo gerenciador de pacotes) |
 | `skipDangerousModePermissionPrompt` | `true` | Não pede confirmação ao entrar no modo bypass de permissões |
@@ -54,7 +53,6 @@ mkdir -p ~/.claude/themes && cp claude/themes/omarchy.json ~/.claude/themes/
 {
   "attribution": { "commit": "", "pr": "" },
   "tui": "fullscreen",
-  "viewMode": "verbose",
   "env": { "DISABLE_AUTOUPDATER": "1" },
   "skipDangerousModePermissionPrompt": true,
   "theme": "custom:omarchy"
