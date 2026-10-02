@@ -31,8 +31,56 @@ touch ~/.claude/.i-have-adhd-always
 mkdir -p ~/.config/ponytail && echo '{"defaultMode":"ultra"}' > ~/.config/ponytail/config.json
 ```
 
-Os comandos `/plugin ...` dentro do Claude Code fazem o mesmo. O hook do
-herdr só faz sentido se o herdr estiver instalado.
+Os comandos `/plugin ...` dentro do Claude Code fazem o mesmo.
+
+### Configs fora do padrão (`~/.claude/settings.json`)
+
+| Chave | Valor | Efeito |
+|---|---|---|
+| `viewMode` | `"verbose"` | Mostra o output completo das ferramentas e o raciocínio |
+| `tui` | `"fullscreen"` | Interface em tela cheia |
+| `env.DISABLE_AUTOUPDATER` | `"1"` | Sem auto-update e sem o aviso de "atualize" (atualizo pelo gerenciador de pacotes) |
+| `skipDangerousModePermissionPrompt` | `true` | Não pede confirmação ao entrar no modo bypass de permissões |
+| `attribution.commit` / `.pr` | `""` | Commits e PRs sem a linha "Co-Authored-By: Claude" |
+| `theme` | `"custom:omarchy"` | Tema próprio, em [`claude/themes/omarchy.json`](claude/themes/omarchy.json) (cores gruvbox-material) |
+
+Juntando tudo:
+
+```bash
+mkdir -p ~/.claude/themes && cp claude/themes/omarchy.json ~/.claude/themes/
+```
+
+```json
+{
+  "attribution": { "commit": "", "pr": "" },
+  "tui": "fullscreen",
+  "viewMode": "verbose",
+  "env": { "DISABLE_AUTOUPDATER": "1" },
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "custom:omarchy"
+}
+```
+
+Mescle esse JSON no `~/.claude/settings.json`. O `/plugin install` já adiciona
+`enabledPlugins` e `extraKnownMarketplaces`, e o herdr adiciona o próprio hook
+(ver abaixo).
+
+### herdr (multiplexador de terminal para agentes)
+
+O [herdr](https://herdr.dev) (`~/.local/bin/herdr`, v0.8.2) mostra numa
+sidebar quais agentes estão rodando, parados ou esperando. Para isso, ele
+instala um hook em cada agente:
+
+```bash
+herdr integration install claude     # cria ~/.claude/hooks/herdr-agent-state.sh + hook SessionStart no settings.json
+herdr integration install opencode   # cria ~/.config/opencode/plugins/herdr-agent-state.js
+herdr integration status             # conferir
+```
+
+Também estão instaladas as integrações `pi` e `codex`. Não edite o script
+gerado, porque o herdr o sobrescreve ao atualizar. O hook só age dentro de
+um pane do herdr (`HERDR_ENV=1`); fora dele, sai sem fazer nada. Atalho da
+sidebar: ver `omarchy/omarchy-customizacoes.md` §18.
 
 ### Como as regras entram em toda sessão
 
@@ -52,7 +100,6 @@ contexto:
 
 ### Outros
 
-- Hook próprio de SessionStart: `~/.claude/hooks/herdr-agent-state.sh` (estado do agente para o herdr).
 - Skills locais em `~/.claude/skills/`: `omarchy` e `diagnose-crash` (links simbólicos para `/usr/share/omarchy/default/agents/skills/`).
 - Os plugins `html-revelo`/`ts-revelo` e as skills docs/pdf/xlsx etc. vêm sincronizados da conta claude.ai.
 
