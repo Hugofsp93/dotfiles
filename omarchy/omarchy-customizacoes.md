@@ -1032,4 +1032,56 @@ omarchy pkg drop spotify   # remove o app nativo (precisa sudo interativo)
 
 ---
 
+## 26. Idle: tela de descanso em 5min10s, bloqueio em 5min
+
+`~/.config/omarchy/shell.json`:
+```json
+"idle": { "lock": 300, "screensaver": 310 }
+```
+
+Como a animação (310s) é maior que o bloqueio (300s), ela nunca chega a
+aparecer — o bloqueio sempre dispara primeiro e cancela o timer da animação.
+Escolha deliberada (perder a animação, manter o bloqueio em 5min).
+
+## 27. Sudoers: tema não pede senha pra atualizar policy do Chromium
+
+```bash
+echo "usul ALL=(root) NOPASSWD: /usr/bin/omarchy-theme-set-browser-policy *" | sudo tee /etc/sudoers.d/omarchy-theme-browser
+sudo chmod 440 /etc/sudoers.d/omarchy-theme-browser
+```
+
+Libera sem senha só esse comando específico (grava a cor do tema em
+`/etc/chromium/policies/managed/color.json`, pra apps webapp tipo Discord
+seguirem o tema). Não afeta mais nada do sudo.
+
+## 28. Lock Screen Explorer: boot screen fixo, sem sincronizar com o tema
+
+```bash
+omarchy-shell lock setBoot stock
+```
+
+Também desativado no painel do próprio plugin: **"Re-apply when Omarchy
+theme changes"** (fica em Settings → Unlock/Boot). Sem isso, toda troca de
+tema reconstruía o initramfs e pedia senha via pkexec.
+
+## 29. fastfetch: logo padrão Arch (`arch2`) em vez do branding do Omarchy
+
+`~/.config/fastfetch/config.jsonc` (cópia do `/etc/fastfetch/config.jsonc`
+com o bloco `logo` trocado):
+
+```json
+"logo": {
+  "type": "builtin",
+  "source": "arch2"
+}
+```
+
+O resto do arquivo (módulos de hardware/software/uptime) é idêntico ao
+padrão do Omarchy — só o logo muda. Precisa ser `type: "builtin"` junto do
+`source`; só trocar o nome do logo sem o tipo não funciona (a config padrão
+do sistema fixa `type: "file"`, que tenta ler o nome como caminho de arquivo
+e falha silenciosamente).
+
+---
+
 *(novas mudanças serão adicionadas abaixo)*
