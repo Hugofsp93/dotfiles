@@ -122,6 +122,56 @@ contexto:
 
 ---
 
+## Claude Code no macOS (2026-10-03)
+
+As regras são as mesmas do Arch (ponytail ultra + i-have-adhd sempre ativos), com
+duas diferenças: existe um `~/.claude/CLAUDE.md` global, e o whiteboard não é instalado.
+
+### Restaurar
+
+```bash
+claude plugin marketplace add DietrichGebert/ponytail
+claude plugin marketplace add ayghri/i-have-adhd
+claude plugin install ponytail@ponytail
+claude plugin install i-have-adhd@i-have-adhd
+
+touch ~/.claude/.i-have-adhd-always
+mkdir -p ~/.config/ponytail && echo '{"defaultMode":"ultra"}' > ~/.config/ponytail/config.json
+```
+
+`~/.claude/CLAUDE.md`:
+
+```md
+# Default style
+Sempre ativos, em toda resposta, inclusive em "oi":
+- ponytail no nível ultra. Desligar só com "stop ponytail".
+- i-have-adhd. Desligar só com "stop adhd mode" / "normal mode".
+```
+
+O CLAUDE.md declara a obrigação, e os hooks SessionStart dos plugins injetam as
+regras completas. O graphify fica por projeto e não entra no global.
+
+### Configs (`~/.claude/settings.json`)
+
+```json
+{
+  "attribution": { "commit": "", "pr": "" },
+  "tui": "fullscreen",
+  "viewMode": "default",
+  "env": { "DISABLE_AUTOUPDATER": "1" }
+}
+```
+
+### Removidos no macOS
+
+- rtk: `brew uninstall rtk`, `rm -rf ~/Library/Application\ Support/rtk`, o
+  hook `rtk hook claude` e as permissões `Bash(rtk ...)` no `settings.json`.
+- `~/.claude/RTK.md` e `~/.claude/KARPATHY.md`.
+- O hook SessionStart manual que injetava `skills/i-have-adhd/SKILL.md` via
+  `jq`, porque ele duplicava o hook do plugin.
+
+---
+
 ## opencode (`~/.config/opencode/`)
 
 Ver [`opencode/README.md`](opencode/README.md). Resumo:
