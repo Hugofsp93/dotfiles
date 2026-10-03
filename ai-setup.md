@@ -63,6 +63,25 @@ Mescle esse JSON no `~/.claude/settings.json`. O `/plugin install` já adiciona
 `enabledPlugins` e `extraKnownMarketplaces`, e o herdr adiciona o próprio hook
 (ver abaixo).
 
+### Home como pasta confiável (`~/.claude.json`)
+
+Sempre abro o Claude em `~`, e a resposta à pergunta "confia nesta pasta?"
+não era salva para a home. Marquei a home manualmente:
+
+```bash
+python3 - <<'EOF'
+import json, os
+p = os.path.expanduser('~/.claude.json'); d = json.load(open(p))
+d.setdefault('projects', {}).setdefault(os.path.expanduser('~'), {})['hasTrustDialogAccepted'] = True
+json.dump(d, open(p, 'w'), indent=2)
+EOF
+```
+
+Efeito: o Claude sobe pelas pastas-pai para checar a confiança, então
+**todas as pastas dentro de `~`** passam a ser confiáveis, inclusive repos
+clonados que ainda não foram revisados (hooks e MCPs do `.claude/` deles
+rodam sem perguntar). Fora da home, ele continua perguntando.
+
 ### herdr (multiplexador de terminal para agentes)
 
 O [herdr](https://herdr.dev) (`~/.local/bin/herdr`, v0.8.2) mostra numa
