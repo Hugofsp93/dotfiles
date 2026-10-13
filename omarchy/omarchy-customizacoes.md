@@ -1020,18 +1020,6 @@ plugin.
 **Reverter:** `omarchy plugin remove io.github.sirjul1337.lock-explorer --yes`
 depois `omarchy plugin enable omarchy.lock`.
 
-## 25. Omarchy Spotify — plugin no lugar do app nativo
-
-Usa ~60MB RAM (vs ~950MB do app nativo Electron). Login/credenciais
-próprios, independentes do app nativo. Exige conta **Spotify Premium**.
-
-```bash
-omarchy plugin add https://github.com/stappmus/Omarchy-Spotify.git --enable
-omarchy pkg drop spotify   # remove o app nativo (precisa sudo interativo)
-```
-
----
-
 ## 26. Idle: tela de descanso em 5min10s, bloqueio em 5min
 
 `~/.config/omarchy/shell.json`:
@@ -1081,6 +1069,48 @@ padrão do Omarchy — só o logo muda. Precisa ser `type: "builtin"` junto do
 `source`; só trocar o nome do logo sem o tipo não funciona (a config padrão
 do sistema fixa `type: "file"`, que tenta ler o nome como caminho de arquivo
 e falha silenciosamente).
+
+## 30. Plugin Omarchy: Alt-Switch (alt-tab visual estilo Windows)
+
+```bash
+omarchy plugin add https://github.com/Pablo-Merino/omarchy-altswitch.git --enable
+```
+
+`~/.config/hypr/bindings.lua`:
+```lua
+dofile(os.getenv("HOME") .. "/.config/omarchy/plugins/io.github.pablo-merino.altswitch/altswitch.lua")
+```
+
+## 31. Plugin Omarchy: Decent Workspaces (widget de workspaces na bar)
+
+```bash
+omarchy plugin add https://github.com/TheTrueFerret/omarchy-decent-workspaces.git --enable
+omarchy plugin disable omarchy.workspaces
+```
+
+⚠️ Substitui o widget nativo `omarchy.workspaces` — os dois juntos duplicam
+o indicador na bar, por isso o nativo fica desabilitado.
+
+Mostra só as workspaces em uso (com ícone do app ao lado do número) e
+indicador de scratchpad. Ajustado pra sempre exibir 1-5 mesmo vazias, igual
+o comportamento do nativo:
+```bash
+omarchy bar set io.github.thetrueferret.decent-workspaces showEmpty true --json
+omarchy bar set io.github.thetrueferret.decent-workspaces maxWorkspaceId 5 --json
+```
+
+Esse `dofile` substitui os 4 binds padrão de ALT+TAB do Omarchy (cyclenext/
+bring_to_top nas duas direções) — ele mesmo faz o unbind, não precisa editar
+mais nada. Depois de adicionar a linha: `hyprctl reload`.
+
+Uso: segurar **Alt**, teclar **Tab** (ou **Shift+Tab** pra andar pra trás) pra
+navegar pela lista de janelas (todos os monitores/workspaces); soltar Alt
+troca pra janela selecionada. **Alt+Esc** cancela sem trocar.
+
+Única config disponível (ícones de app na lista, ligado por padrão):
+```bash
+omarchy-shell altswitch set showIcons true   # ou false
+```
 
 ---
 
