@@ -14,7 +14,7 @@ um simples "oi".
 |---|---|---|
 | **ponytail** | `DietrichGebert/ponytail` | "Lazy senior dev": código mínimo (YAGNI ladder). Hooks: SessionStart, SubagentStart, UserPromptSubmit. |
 | **i-have-adhd** | `ayghri/i-have-adhd` | Output ADHD-friendly. SessionStart injeta as regras se existir a flag. |
-| **whiteboard** | `devdotfast/whiteboard` | Ferramentas MCP de whiteboard. |
+| **skins** | `hellosverre/claude-skins` | Tema/skin da transcrição do Claude Code (skill `skins:skin-designer`). |
 
 ### Restaurar numa máquina nova
 
@@ -22,10 +22,10 @@ um simples "oi".
 # Requer node no PATH (hooks dos plugins)
 claude plugin marketplace add DietrichGebert/ponytail
 claude plugin marketplace add ayghri/i-have-adhd
-claude plugin marketplace add devdotfast/whiteboard
+claude plugin marketplace add hellosverre/claude-skins
 claude plugin install ponytail@ponytail
 claude plugin install i-have-adhd@i-have-adhd
-claude plugin install whiteboard@devfast
+claude plugin install skins@hellosverre-mods
 
 touch ~/.claude/.i-have-adhd-always
 mkdir -p ~/.config/ponytail && echo '{"defaultMode":"ultra"}' > ~/.config/ponytail/config.json
@@ -84,7 +84,7 @@ rodam sem perguntar). Fora da home, ele continua perguntando.
 
 ### herdr (multiplexador de terminal para agentes)
 
-O [herdr](https://herdr.dev) (`~/.local/bin/herdr`, v0.8.2) mostra numa
+O [herdr](https://herdr.dev) (`~/.local/bin/herdr`, v0.9.3) mostra numa
 sidebar quais agentes estão rodando, parados ou esperando. Para isso, ele
 instala um hook em cada agente:
 
@@ -125,7 +125,7 @@ contexto:
 ## Claude Code no macOS (2026-10-03)
 
 As regras são as mesmas do Arch (ponytail ultra + i-have-adhd sempre ativos), com
-duas diferenças: existe um `~/.claude/CLAUDE.md` global, e o whiteboard não é instalado.
+uma diferença: existe um `~/.claude/CLAUDE.md` global.
 
 ### Restaurar
 
