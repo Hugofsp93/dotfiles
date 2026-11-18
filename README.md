@@ -1,8 +1,7 @@
 Extensions IDE (VSCODE based):
 
 - GitLens - Git supercharged
-- One Dark Pro (tema: One Dark Pro Night Flat)
+- AMOLED Github Theme
 - Material Icon Theme
-- Carbon Product Icons
-- endwise
+- Lucide Icons (product icons)
 - Svelte for VS Code
