@@ -5,5 +5,4 @@ Extensions IDE (VSCODE based):
 - Material Icon Theme
 - Carbon Product Icons
 - endwise
-- Trailing Spaces
 - Svelte for VS Code
