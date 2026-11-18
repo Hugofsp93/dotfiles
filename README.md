@@ -1,9 +1,9 @@
 Extensions IDE (VSCODE based):
 
-- Claude Code for VS Code
-- Custom UI Style
 - GitLens - Git supercharged
-- Maron Themes
-- Simple icons
+- One Dark Pro (tema: One Dark Pro Night Flat)
+- Material Icon Theme
+- Carbon Product Icons
+- endwise
 - Trailing Spaces
 - Svelte for VS Code
