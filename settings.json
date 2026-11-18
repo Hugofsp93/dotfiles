@@ -16,6 +16,7 @@
     "editor.hover.enabled": "off",
     "editor.tabSize": 2,
     "editor.showFoldingControls": "never",
+    "editor.renderLineHighlight": "none",
     "terminal.integrated.fontLigatures.enabled": true,
     "workbench.reduceMotion": "off",
     "workbench.activityBar.location": "top",
