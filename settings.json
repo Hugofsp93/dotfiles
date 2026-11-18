@@ -20,6 +20,8 @@
     "editor.guides.indentation": false,
     "editor.guides.bracketPairs": true,
     "editor.occurrencesHighlight": "off",
+    "editor.glyphMargin": false,
+    "editor.lineDecorationsWidth": 24,
     "terminal.integrated.fontLigatures.enabled": true,
     "workbench.reduceMotion": "off",
     "workbench.tree.enableStickyScroll": false,
