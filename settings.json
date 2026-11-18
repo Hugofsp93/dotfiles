@@ -22,6 +22,7 @@
     "editor.occurrencesHighlight": "off",
     "terminal.integrated.fontLigatures.enabled": true,
     "workbench.reduceMotion": "off",
+    "workbench.tree.enableStickyScroll": false,
     "workbench.activityBar.location": "top",
     "workbench.navigationControl.enabled": false,
     "workbench.browser.showInTitleBar": false,
