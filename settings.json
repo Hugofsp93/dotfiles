@@ -13,7 +13,7 @@
     "editor.colorDecorators": true,
     "editor.codeLens": false,
     "editor.lightbulb.enabled": "off",
-    "editor.hover.enabled": "off",
+    "editor.hover.enabled": "onKeyboardModifier",
     "editor.tabSize": 2,
     "editor.showFoldingControls": "never",
     "editor.renderLineHighlight": "none",
@@ -61,5 +61,6 @@
     "workbench.statusBar.visible": false,
     "breadcrumbs.enabled": false,
     "files.trimTrailingWhitespace": true,
-    "files.insertFinalNewline": true
+    "files.insertFinalNewline": true,
+    "gitlens.currentLine.format": "${author, }${agoOrDate}",
 }
