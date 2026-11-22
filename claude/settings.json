@@ -1,0 +1,80 @@
+{
+  "env": {
+    "DISABLE_AUTOUPDATER": "1"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "workflowKeywordTriggerEnabled": false,
+  "enabledPlugins": {
+    "i-have-adhd@i-have-adhd": true,
+    "ponytail@ponytail": true,
+    "humanizer@humanizer": true,
+    "chat-timestamps@chat-timestamps": true
+  },
+  "extraKnownMarketplaces": {
+    "i-have-adhd": {
+      "source": {
+        "source": "github",
+        "repo": "ayghri/i-have-adhd"
+      }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    },
+    "humanizer": {
+      "source": {
+        "source": "github",
+        "repo": "blader/humanizer"
+      }
+    },
+    "chat-timestamps": {
+      "source": {
+        "source": "github",
+        "repo": "s-a-s-k-i-a/claude-code-timestamps"
+      }
+    }
+  },
+  "viewMode": "default",
+  "feedbackDrafts": "off",
+  "spinnerTipsEnabled": false,
+  "effortLevel": "high",
+  "modelSettings": {
+    "claude-fable-5": {
+      "effortLevel": "xhigh"
+    },
+    "claude-opus-5": {
+      "effortLevel": "high"
+    },
+    "claude-fable-5-1": {
+      "effortLevel": "high"
+    },
+    "claude-opus-5-5": {
+      "effortLevel": "medium"
+    },
+    "claude-sonnet-5-5": {
+      "effortLevel": "medium"
+    }
+  },
+  "promptSuggestionEnabled": false,
+  "awaySummaryEnabled": false,
+  "askUserQuestionTimeout": "never",
+  "dialogExpiry": "never",
+  "tui": "fullscreen",
+  "timeFormat": "24-hour",
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark-daltonized",
+  "editorMode": "normal",
+  "preferredNotifChannel": "ghostty",
+  "showTurnDuration": false,
+  "terminalProgressBarEnabled": false,
+  "remoteControlAtStartup": false,
+  "agentPushNotifEnabled": true
+}
