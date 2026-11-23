@@ -1,0 +1,30 @@
+onboarding = false
+[ui]
+sidebar_collapsed_mode = "hidden"
+agent_panel_sort = "priority"
+show_agent_labels_on_pane_borders = true
+
+
+status_indicators = "symbols"
+[ui.sidebar.agents]
+rows = [["state_icon", "tab"]]
+
+[ui.sidebar.spaces]
+rows = [["workspace"]]
+
+[ui.toast]
+delivery = "herdr"
+
+[ui.sound]
+enabled = true
+
+[theme]
+name = "terminal"
+auto_switch = false
+
+[experimental]
+pane_history = false
+switch_ascii_input_source_in_prefix = false
+
+[keys]
+toggle_sidebar = "cmd+b"
