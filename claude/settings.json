@@ -1,6 +1,7 @@
 {
   "env": {
-    "DISABLE_AUTOUPDATER": "1"
+    "DISABLE_AUTOUPDATER": "1",
+    "CLAUDE_CODE_PLUGIN_DIRS": "~/.claude/mods/oneline"
   },
   "attribution": {
     "commit": "",

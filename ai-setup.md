@@ -115,6 +115,43 @@ contexto:
 
   Na sessão: `/ponytail lite|full|ultra`. Para desligar: "stop ponytail".
 
+### Barra inferior numa linha só (GSD + mod `oneline`)
+
+Estado em 2026-11-23, GSD 1.23.0. O instalador do GSD põe um `statusLine`
+(`gsd-statusline.js`) que ocupa uma linha própria acima do `⏵⏵ … mode on`, e o
+hook `gsd-check-update` acende `⬆ /gsd-update` nela. Troquei os dois pelo mod
+[`claude/mods/oneline`](claude/mods/oneline), que escreve modelo, pasta e
+contexto no fim da linha do modo:
+
+```
+⏵⏵ bypass permissions on (shift+tab to cycle) · ← 2 agents · │ Opus 5.5 │ hugofelipe ░░░░░░░░░░ 0%
+```
+
+Depois de instalar/atualizar o GSD (`/gsd-update` ou
+`npx -y --package=@opengsd/gsd-core@latest -- gsd-core --claude --global`):
+
+```bash
+mkdir -p ~/.claude/mods && cp -r claude/mods/oneline ~/.claude/mods/
+
+# tira o statusLine do GSD e o hook que checa update; liga o mod
+node -e '
+const f=process.env.HOME+"/.claude/settings.json",fs=require("fs"),s=JSON.parse(fs.readFileSync(f));
+delete s.statusLine;
+s.hooks.SessionStart=(s.hooks.SessionStart||[]).filter(g=>!g.hooks.some(h=>h.command.includes("gsd-check-update")));
+(s.env??={}).CLAUDE_CODE_PLUGIN_DIRS="~/.claude/mods/oneline";
+fs.writeFileSync(f,JSON.stringify(s,null,2)+"\n")'
+rm -f ~/.cache/gsd/gsd-update-check*.json
+```
+
+Reiniciar o Claude Code. Sem o hook, o GSD não avisa mais de versão nova:
+rodar `/gsd-update` de vez em quando. O instalador não sobrescreve um
+`statusLine` existente (só com `--force-statusline`), mas pode recolocar o
+hook `gsd-check-update`: rodar o `node -e` de novo depois de cada update.
+
+Alinhar a info à direita (space-between) não deu certo: o mod não sabe a
+largura real da linha nem o tamanho do texto do Claude Code, e um `Box` com
+`justifyContent` em volta da linha é recusado.
+
 ### Outros
 
 - Skills locais em `~/.claude/skills/`: `omarchy` e `diagnose-crash` (links simbólicos para `/usr/share/omarchy/default/agents/skills/`).
